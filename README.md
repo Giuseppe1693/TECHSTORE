@@ -8,6 +8,7 @@ Funzionalità principali
 * Rimozione dei prodotti dal carrello
 * Calcolo del totale dei prodotti nel carrello
 * Interfaccia responsive e semplice
+
 Tecnologie utilizzate
 
 * React per il frontend
