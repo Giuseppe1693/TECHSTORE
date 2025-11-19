@@ -14,7 +14,7 @@ export function useLocalStorage(key, initialValue) {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      // ignore
+      // non fare niente
     }
   }, [key, value]);
 
