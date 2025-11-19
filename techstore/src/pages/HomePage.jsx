@@ -1,7 +1,6 @@
 import Navbar from "../components/Navbar.jsx";
 import Hero from "../components/Hero.jsx";
 import Footer from "../components/Footer.jsx";
-import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (

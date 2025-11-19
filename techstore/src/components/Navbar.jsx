@@ -12,7 +12,6 @@ export default function Navbar({ showAuthButtons = false }) {
     navigate("/");
   }
 
-  // underline animata + hover yellow + testo bianco
   const desktopLinkBase =
     "relative inline-flex items-center gap-1 px-1 text-white hover:text-yellow-300 " +
     "after:content-[''] after:absolute after:bottom-0 after:left-0 " +
@@ -22,14 +21,12 @@ export default function Navbar({ showAuthButtons = false }) {
 
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black/60 backdrop-blur-md shadow-lg">
-      {/* LOGO */}
       <div className="text-2xl font-bold tracking-wide text-yellow-300">
         <Link to={logged ? "/home" : "/"} className="cursor-pointer">
           TECHSTORE
         </Link>
       </div>
 
-      {/* DESKTOP NAV */}
       {!showAuthButtons && (
         <div className="hidden md:flex items-center gap-6">
           <NavLink to="/home" className={desktopLinkBase}>
@@ -60,7 +57,6 @@ export default function Navbar({ showAuthButtons = false }) {
         </div>
       )}
 
-      {/* LOGIN / REGISTER BUTTONS */}
       {showAuthButtons && (
         <div className="hidden md:flex gap-3">
           <Link
@@ -78,12 +74,10 @@ export default function Navbar({ showAuthButtons = false }) {
         </div>
       )}
 
-      {/* HAMBURGER */}
       <button className="md:hidden text-white text-2xl" onClick={() => setOpen((o) => !o)}>
         <i className="fa fa-bars" />
       </button>
 
-      {/* MOBILE MENU */}
       <div
         className={`absolute md:hidden right-4 top-16 bg-black/85 rounded-xl px-6 py-4 flex flex-col gap-3 ${
           open ? "block" : "hidden"
