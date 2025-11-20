@@ -21,12 +21,17 @@ export function CartProvider({ children }) {
     setCart((prev) => prev.filter((p) => p.name !== name));
   }
 
+  function clearCart() {
+    setCart([]);
+  }
+
   const total = useMemo(() => cart.reduce((sum, p) => sum + p.price * p.quantity, 0), [cart]);
 
   const value = {
     cart,
     addToCart,
     removeFromCart,
+    clearCart,
     total,
   };
 

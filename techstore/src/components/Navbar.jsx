@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useCart } from "../context/CartContext.jsx";
 
 export default function Navbar({ showAuthButtons = false }) {
   const [open, setOpen] = useState(false);
   const { logout, logged } = useAuth();
+  const { cart } = useCart();
   const navigate = useNavigate();
+
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   function handleLogout() {
     logout();
@@ -41,9 +45,17 @@ export default function Navbar({ showAuthButtons = false }) {
             <i className="fa fa-envelope" /> Contatti
           </NavLink>
 
-          <NavLink to="/carrello" className={desktopLinkBase}>
-            <i className="fa fa-shopping-cart" /> Carrello
-          </NavLink>
+          <div className="relative">
+            <NavLink to="/carrello" className={desktopLinkBase}>
+              <i className="fa fa-shopping-cart" /> Carrello
+            </NavLink>
+
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md">
+                {cartCount}
+              </span>
+            )}
+          </div>
 
           {logged && (
             <button
@@ -88,15 +100,26 @@ export default function Navbar({ showAuthButtons = false }) {
             <NavLink to="/home" onClick={() => setOpen(false)} className="text-white">
               <i className="fa fa-home mr-1" /> Home
             </NavLink>
+
             <NavLink to="/prodotti" onClick={() => setOpen(false)} className="text-white">
               <i className="fa fa-box-open mr-1" /> Prodotti
             </NavLink>
+
             <NavLink to="/contatti" onClick={() => setOpen(false)} className="text-white">
               <i className="fa fa-envelope mr-1" /> Contatti
             </NavLink>
-            <NavLink to="/carrello" onClick={() => setOpen(false)} className="text-white">
-              <i className="fa fa-shopping-cart mr-1" /> Carrello
-            </NavLink>
+
+            <div className="relative">
+              <NavLink to="/carrello" onClick={() => setOpen(false)} className="text-white">
+                <i className="fa fa-shopping-cart mr-1" /> Carrello
+              </NavLink>
+
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-md">
+                  {cartCount}
+                </span>
+              )}
+            </div>
 
             {logged && (
               <button

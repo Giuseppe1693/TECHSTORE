@@ -38,12 +38,11 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* DISCLAIMER LEGALE */}
       <div className="text-center text-xs text-gray-500 px-4 max-w-4xl mx-auto pb-4">
         <p className="mt-2">
-          <strong>Disclaimer:</strong> TechStore è un progetto dimostrativo sviluppato esclusivamente a scopo didattico.
-          I nomi, le immagini e i marchi relativi ai prodotti Apple appartengono ai rispettivi proprietari. Questo sito
-          non è affiliato, approvato o sponsorizzato da Apple Inc. né rappresenta un vero e-commerce.
+          TechStore è un progetto dimostrativo sviluppato esclusivamente a scopo didattico. I nomi, le immagini e i
+          marchi relativi ai prodotti Apple appartengono ai rispettivi proprietari. Questo sito non è affiliato,
+          approvato o sponsorizzato da Apple Inc. né rappresenta un vero e-commerce.
         </p>
       </div>
 
