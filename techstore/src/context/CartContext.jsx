@@ -14,7 +14,6 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
-    alert("Prodotto aggiunto al carrello!");
   }
 
   function removeFromCart(name) {

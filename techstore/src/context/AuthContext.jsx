@@ -21,7 +21,6 @@ export function AuthProvider({ children }) {
       setLogged(true);
       return true;
     } else {
-      alert("Credenziali errate.");
       return false;
     }
   }

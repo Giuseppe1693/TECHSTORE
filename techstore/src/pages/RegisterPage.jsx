@@ -3,6 +3,7 @@ import Footer from "../components/Footer.jsx";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate, Link } from "react-router-dom";
+import Modal from "../components/Modal.jsx";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -13,6 +14,8 @@ export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
+  const [showModal, setShowModal] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -22,8 +25,8 @@ export default function RegisterPage() {
     }
 
     register({ name, surname, username, email, password });
-    alert("Registrazione completata!");
-    navigate("/login");
+
+    setShowModal(true);
   }
 
   return (
@@ -117,7 +120,19 @@ export default function RegisterPage() {
           </form>
         </section>
       </main>
+
       <Footer />
+
+      <Modal
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+          navigate("/login");
+        }}
+      >
+        <h2 className="text-xl font-bold text-center">Registrazione completata!</h2>
+        <p className="text-center mt-2">Ora puoi accedere con il tuo nuovo account.</p>
+      </Modal>
     </div>
   );
 }

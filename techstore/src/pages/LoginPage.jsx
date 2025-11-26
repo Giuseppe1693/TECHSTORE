@@ -3,6 +3,7 @@ import Footer from "../components/Footer.jsx";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate, Link } from "react-router-dom";
+import Modal from "../components/Modal.jsx";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -10,10 +11,17 @@ export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const [errorModal, setErrorModal] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
     const ok = login(username.trim(), password.trim());
-    if (ok) navigate("/home");
+
+    if (ok) {
+      navigate("/home");
+    } else {
+      setErrorModal(true);
+    }
   }
 
   return (
@@ -68,6 +76,11 @@ export default function LoginPage() {
         </section>
       </main>
       <Footer />
+
+      <Modal show={errorModal} onClose={() => setErrorModal(false)}>
+        <h2 className="text-xl font-bold text-center text-red-600">Credenziali errate</h2>
+        <p className="text-center mt-2">Username o password non corretti. Riprova per favore.</p>
+      </Modal>
     </div>
   );
 }
