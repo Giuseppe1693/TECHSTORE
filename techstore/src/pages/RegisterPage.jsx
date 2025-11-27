@@ -131,7 +131,7 @@ export default function RegisterPage() {
         }}
       >
         <h2 className="text-xl font-bold text-center">Registrazione completata!</h2>
-        <p className="text-center mt-2">Ora puoi accedere con il tuo nuovo account.</p>
+        <p className="text-center mt-2">Ora puoi effettuare l'accesso.</p>
       </Modal>
     </div>
   );
