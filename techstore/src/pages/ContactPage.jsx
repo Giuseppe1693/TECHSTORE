@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useState } from "react";
+import Modal from "../components/Modal.jsx";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -10,6 +11,8 @@ export default function ContactPage() {
     message: "",
   });
 
+  const [showModal, setShowModal] = useState(false);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -17,13 +20,16 @@ export default function ContactPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert("Messaggio inviato!");
+
+    setShowModal(true);
+
     setForm({ name: "", surname: "", email: "", message: "" });
   }
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
+
       <main className="flex-1 flex justify-center items-center px-4 py-16">
         <div className="bg-white text-black rounded-xl shadow-2xl w-full max-w-lg p-8">
           <h1 className="text-2xl font-bold text-center mb-6">Per qualsiasi info compila il form</h1>
@@ -95,7 +101,13 @@ export default function ContactPage() {
           </form>
         </div>
       </main>
+
       <Footer />
+
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <h2 className="text-xl font-bold text-center">Messaggio inviato!</h2>
+        <p className="text-center mt-2">Grazie per averci contattato, ti risponderemo al più presto.</p>
+      </Modal>
     </div>
   );
 }

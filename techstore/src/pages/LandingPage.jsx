@@ -10,6 +10,8 @@ export default function LandingPage() {
         <Hero
           title="Scopri oggi la tecnologia che cambierà il tuo domani."
           subtitle="Innovazione, futuro e passione tech, tutto in un solo click!"
+          ctaText="Esplora i prodotti"
+          ctaLink="/prodotti"
         />
       </main>
       <Footer />

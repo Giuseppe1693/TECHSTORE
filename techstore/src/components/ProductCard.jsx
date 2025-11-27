@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+
 import Modal from "./Modal.jsx";
 import ProductDetailModal from "./ProductDetailModal.jsx";
+import AuthRequiredModal from "./AuthRequiredModal.jsx";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
+  const { logged } = useAuth();
+  const navigate = useNavigate();
+
   const [showModal, setShowModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   function handleAdd() {
     addToCart({
@@ -40,6 +48,12 @@ export default function ProductCard({ product }) {
             className="w-full bg-yellow-300 text-black font-semibold py-2 rounded-lg hover:bg-yellow-200 hover:scale-105 transition shadow-md"
             onClick={(e) => {
               e.stopPropagation();
+
+              if (!logged) {
+                setShowAuthModal(true);
+                return;
+              }
+
               handleAdd();
             }}
           >
@@ -58,9 +72,21 @@ export default function ProductCard({ product }) {
         onClose={() => setOpenDetail(false)}
         product={product}
         onAdd={() => {
+          if (!logged) {
+            setOpenDetail(false);
+            setShowAuthModal(true);
+            return;
+          }
+
           handleAdd();
           setOpenDetail(false);
         }}
+      />
+
+      <AuthRequiredModal
+        show={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onConfirm={() => navigate("/register")}
       />
     </>
   );

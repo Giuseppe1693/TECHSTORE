@@ -26,14 +26,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/prodotti"
-            element={
-              <ProtectedRoute>
-                <ProductsPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/prodotti" element={<ProductsPage />} />
+
           <Route
             path="/contatti"
             element={
