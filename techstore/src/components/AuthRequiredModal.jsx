@@ -13,7 +13,7 @@ export default function AuthRequiredModal({ show, onClose, onConfirm }) {
             className="w-full bg-yellow-300 font-semibold py-2 rounded-lg hover:bg-yellow-200 transition"
             onClick={onConfirm}
           >
-            Vai alla registrazione
+            Registrati!
           </button>
 
           <button
