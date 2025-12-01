@@ -24,7 +24,13 @@ export default function Navbar({ showAuthButtons = false }) {
     "hover:after:scale-x-100";
 
   return (
-    <nav className="w-full bg-black/40 text-white px-6 py-4 shadow-md flex items-center justify-between">
+    <nav
+      className="
+  z-50 flex items-center justify-between px-6 py-4 
+  bg-white/10 backdrop-blur-xl 
+  border-b border-white/20
+  shadow-lg"
+    >
       <div className="text-2xl font-bold tracking-wide text-yellow-300">
         <Link to={logged ? "/home" : "/"} className="cursor-pointer">
           TECHSTORE
@@ -86,14 +92,15 @@ export default function Navbar({ showAuthButtons = false }) {
         </div>
       )}
 
-      <button className="md:hidden text-white text-2xl" onClick={() => setOpen((o) => !o)}>
+      <button className="md:hidden text-white text-2xl z-[60]" onClick={() => setOpen((o) => !o)}>
         <i className="fa fa-bars" />
       </button>
 
       <div
-        className={`absolute md:hidden right-4 top-16 bg-black/80 rounded-xl px-6 py-4 flex flex-col gap-3 shadow-lg ${
-          open ? "block" : "hidden"
-        }`}
+        className={`absolute md:hidden right-4 top-16 w-56 
+        bg-black/85 rounded-xl px-6 py-4 flex flex-col gap-3 
+        shadow-lg z-[70] backdrop-blur-md 
+        transition-all duration-300 ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         {!showAuthButtons && (
           <>
