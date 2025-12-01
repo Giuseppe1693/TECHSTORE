@@ -5,7 +5,7 @@ import Footer from "../components/Footer.jsx";
 export default function HomePage() {
   return (
     <div
-      className="min-h-screen flex flex-col text-white bg-cover bg-center"
+      className="min-h-screen flex flex-col text-white bg-cover bg-center bg-fixed"
       style={{
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')",
