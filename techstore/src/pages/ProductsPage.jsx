@@ -1,11 +1,46 @@
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import ProductCard from "../components/ProductCard.jsx";
-import products from "../data/products.js";
-import { useState } from "react";
 
 export default function ProductsPage() {
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const urls = [
+          "https://dummyjson.com/products/category/smartphones",
+          "https://dummyjson.com/products/category/laptops",
+        ];
+
+        const requests = urls.map((url) => fetch(url).then((res) => res.json()));
+        const results = await Promise.all(requests);
+
+        const merged = [...results[0].products, ...results[1].products];
+
+        const normalized = merged.map((p) => ({
+          id: p.id,
+          name: p.title,
+          description: p.description,
+          price: p.price,
+          image: p.thumbnail,
+          onSale: p.discountPercentage > 0,
+        }));
+
+        setProducts(normalized);
+      } catch {
+        setError("Errore nel caricamento dei prodotti.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   const filtered = products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -24,14 +59,16 @@ export default function ProductsPage() {
           />
         </div>
 
-        {filtered.length === 0 && (
+        {loading && <p className="text-white text-xl font-semibold text-center mt-10">Caricamento dei prodotti...</p>}
+
+        {error && <p className="text-red-400 text-xl font-semibold text-center mt-10">{error}</p>}
+
+        {!loading && filtered.length === 0 && (
           <p className="text-white text-xl font-semibold text-center mt-10">Nessun prodotto trovato</p>
         )}
 
         <section className="flex justify-center flex-wrap gap-6">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+          {!loading && filtered.map((p) => <ProductCard key={p.id} product={p} />)}
         </section>
       </main>
 

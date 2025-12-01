@@ -1,6 +1,9 @@
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useCart } from "../context/CartContext.jsx";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal.jsx";
 
 function formatEuro(num) {
   return num.toLocaleString("it-IT", {
@@ -11,6 +14,9 @@ function formatEuro(num) {
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart, total } = useCart();
+
+  const navigate = useNavigate();
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -56,11 +62,26 @@ export default function CartPage() {
                   Svuota carrello
                 </button>
 
-                <button className="bg-yellow-300 text-black font-semibold px-6 py-2 rounded-lg hover:bg-yellow-200 hover:scale-105 transition shadow-md">
+                <button
+                  onClick={() => setShowPaymentModal(true)}
+                  className="bg-yellow-300 text-black font-semibold px-6 py-2 rounded-lg hover:bg-yellow-200 hover:scale-105 transition shadow-md"
+                >
                   Procedi al pagamento
                 </button>
               </div>
             </div>
+
+            <Modal
+              show={showPaymentModal}
+              onClose={() => {
+                setShowPaymentModal(false);
+                clearCart();
+                navigate("/home");
+              }}
+            >
+              <h2 className="text-xl font-bold text-center text-green-600">Pagamento effettuato con successo</h2>
+              <p className="text-center mt-2">Grazie per averci preferito!</p>
+            </Modal>
           </div>
         )}
       </main>
